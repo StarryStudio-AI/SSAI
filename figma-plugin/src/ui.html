@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Design Creation Bot</title>
+</head>
+<body>
+  <h2>AI Powered Design Wizard!</h2>
+  <p>Input your component description:</p>
+  <textarea id="componentPrompt" placeholder="Describe your desired component here..." rows="4" cols="30"></textarea>
+
+  <br><br>
+
+  <button id="create">Generate Component</button>
+
+  <script>
+    // Emit the event with the appropriate data to the main plugin context
+    const emit = (eventName, data) => {
+      parent.postMessage({ pluginMessage: { type: eventName, ...data } }, '*');
+    };
+
+    document.getElementById('create').onclick = () => {
+      const textbox = document.getElementById('componentPrompt');
+      const prompt = textbox.value.trim(); // Trim whitespace
+
+      if (prompt) {
+        // Emit the event to generate the component
+        emit('generate-component', { prompt });
+        console.log('Create button clicked with prompt:', prompt);
+      } else {
+        console.log('Prompt is empty, not sending');
+        alert('Please enter a component description.');
+      }
+    };
+  </script>
+</body>
+</html>
