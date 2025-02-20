@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowJs": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "paths": {
+      "@figma/plugin-typings": ["./node_modules/@figma/plugin-typings/index.d.ts"]
+    }
+  },
+  "include": ["src/**/*", "typings.d.ts"],
+  "exclude": ["node_modules"]
+}
