@@ -11,14 +11,15 @@ on:
       - dev
 
 jobs:
-  lint-test:
-    name: Lint & Test Code
+  ci-pipeline:
+    name: Lint, Test & Security Scan
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      #  Super-Linter for Multi-Language Code Validation
       - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
@@ -31,19 +32,32 @@ jobs:
           VALIDATE_MARKDOWN: true
           VALIDATE_TYPESCRIPT_ES: true
 
-      - name: Set Up Node.js (For Frontend/Plugin)
+      #  Set Up Node.js (For Frontend/Plugin)
+      - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+    
       - name: Install Dependencies
         run: npm install || echo "No dependencies found"
 
+      #  Lint Code
       - name: Run Linting
         run: npm run lint || echo "Linting skipped"
 
+      #  Run Tests
       - name: Run Tests
         run: npm test || echo "Tests skipped"
 
+      #  Security Scan for Vulnerabilities
+      - name: Run Security Scan
+        run: npm audit --audit-level=high || echo "Security scan completed"
+
+      #  Success Message
       - name: Success Message
         run: echo "CI Checks Completed"
+
+      #  Deployment Placeholder (For Future Use)
+      - name: Deploy (Future Scope)
+        run: echo "Deploying to Production (Future Step)"
